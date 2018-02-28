@@ -1,23 +1,32 @@
 import React from 'react'
-import { Tabs, Tab, Link as RebassLink } from 'rebass'
 import Link from 'next/link'
+import { Menu } from 'semantic-ui-react'
+
+const getActive = name =>
+  typeof window !== 'undefined' && window.location.search.split('=')[1] === name
 
 export default () => (
-  <Tabs my={4}>
-    <Tab borderColor="blue">
+  <Menu pointing secondary>
+    <Menu.Item name="Video" active={getActive('video')}>
       <Link href={{ pathname: '/categories', query: { name: 'video' } }}>
-        <RebassLink>Video</RebassLink>
+        <span style={{ color: 'rgba(0,0,0,.85)', cursor: 'pointer' }}>
+          Video
+        </span>
       </Link>
-    </Tab>
-    <Tab>
+    </Menu.Item>
+    <Menu.Item name="Talk" active={getActive('talk')}>
       <Link href={{ pathname: '/categories', query: { name: 'talk' } }}>
-        <RebassLink>Talk</RebassLink>
+        <span style={{ color: 'rgba(0,0,0,.85)', cursor: 'pointer' }}>
+          Talk
+        </span>
       </Link>
-    </Tab>
-    <Tab>
+    </Menu.Item>
+    <Menu.Item name="Article" active={getActive('article')}>
       <Link href={{ pathname: '/categories', query: { name: 'article' } }}>
-        <RebassLink>Article</RebassLink>
+        <span style={{ color: 'rgba(0,0,0,.85)', cursor: 'pointer' }}>
+          Article
+        </span>
       </Link>
-    </Tab>
-  </Tabs>
+    </Menu.Item>
+  </Menu>
 )

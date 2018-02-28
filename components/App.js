@@ -8,7 +8,8 @@ import { Provider, Container } from 'rebass'
 
 injectGlobal`
   * { box-sizing: border-box; }
-  body { margin: 0; }`
+  body { margin: 0;}
+`
 
 // Polyfill fetch() on the server (used by apollo-client)
 if (!process.browser) {

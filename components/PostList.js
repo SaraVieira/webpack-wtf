@@ -2,51 +2,61 @@ import { graphql, compose } from 'react-apollo'
 import { withRouter } from 'next/router'
 import gql from 'graphql-tag'
 import ErrorMessage from './ErrorMessage'
-import {
-  Card,
-  Box,
-  BackgroundImage,
-  Subhead,
-  Small,
-  Flex,
-  Column
-} from 'rebass'
+import styled from 'styled-components'
+import { Card, Icon, Image } from 'semantic-ui-react'
 
-function PostList (props) {
+const Section = styled.section`
+  grid-gap: 40px;
+  display: grid;
+  grid-template-columns: auto auto auto;
+`
+
+const ImageWrapper = styled.div`
+  max-height: 170px;
+  overflow: hidden;
+`
+
+const Img = styled(Image)`
+  display: block;
+  margin: auto;
+`
+
+const PostList = props => {
   const { data: { error, category } } = props
   if (error) return <ErrorMessage message="Error loading posts." />
 
-  const Item = ({ url, meta }) => {
+  const Item = ({ url, meta, type }) => {
     return (
-      <Column>
-        <Box width={256}>
-          <Card>
-            <BackgroundImage
-              style={{ maxWidth: '100%' }}
-              src={(meta || {}).image}
-              width={256}
-            />
-            <Box p={2}>
-              <Subhead>
-                <a href={url}>{(meta || {}).title}</a>
-              </Subhead>
-              <Small>{(meta || {}).description}</Small>
-            </Box>
-          </Card>
-        </Box>
-      </Column>
+      <Card style={{ margin: 0 }}>
+        <ImageWrapper>
+          <Img style={{ maxWidth: '100%' }} src={(meta || {}).image} />
+        </ImageWrapper>
+        <Card.Content>
+          <Card.Header>{(meta || {}).title}</Card.Header>
+          <Card.Meta>
+            <span className="date">{type.toString()}</span>
+          </Card.Meta>
+          <Card.Description>{(meta || {}).description}</Card.Description>
+        </Card.Content>
+        <Card.Content extra>
+          <a href={url} target="_blank">
+            <Icon name="external" />
+            {type.toString() === 'video' ? 'Watch Video' : null}
+            {type.toString() === 'article' ? 'Read Article' : null}
+            {type.toString() === 'talk' ? 'Watch Talk' : null}
+          </a>
+        </Card.Content>
+      </Card>
     )
   }
 
   if (category && category.length) {
     return (
-      <section>
-        <Flex flexWrap="wrap" mt={2}>
-          {category
-            ? category.map((link, index) => <Item {...link} key={index} />)
-            : null}
-        </Flex>
-      </section>
+      <Section>
+        {category
+          ? category.map((link, index) => <Item {...link} key={index} />)
+          : null}
+      </Section>
     )
   }
   return <div>Loading</div>
@@ -56,6 +66,7 @@ export const Category = gql`
   query category($category: String) {
     category(category: $category) {
       url
+      type
       meta {
         author
         date

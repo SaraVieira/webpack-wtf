@@ -12,17 +12,24 @@
     "precommit": "lint-staged"
   },
   "dependencies": {
+    "@zeit/next-css": "^0.1.2",
+    "@zeit/next-preact": "^0.0.5",
     "apollo-client-preset": "1.0.4",
     "graphql": "0.11.7",
     "graphql-anywhere": "4.0.2",
     "graphql-tag": "2.5.0",
     "isomorphic-unfetch": "2.0.0",
     "next": "latest",
+    "preact": "^8.2.7",
+    "preact-compat": "^3.18.0",
     "prop-types": "15.6.0",
     "react": "16.2.0",
     "react-apollo": "2.0.1",
     "react-dom": "16.2.0",
+    "react-masonry-layout": "^0.3.0",
     "rebass": "^2.0.0-0",
+    "semantic-ui-css": "^2.3.0",
+    "semantic-ui-react": "^0.78.3",
     "styled-components": "^3.1.6"
   },
   "author": "",
@@ -35,6 +42,7 @@
     "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-react": "^7.7.0",
     "eslint-plugin-standard": "^3.0.1",
+    "file-loader": "^1.1.10",
     "husky": "^0.14.3",
     "lint-staged": "^7.0.0",
     "prettier": "^1.11.0"
